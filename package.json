@@ -1,0 +1,28 @@
+{
+  "name": "com.av.lifetime",
+  "version": "1.0.0",
+  "displayName": "AV Lifetime",
+  "description": "Object lifetime management system with target caching, initialization, and context tracking.",
+  "unity": "2021.3",
+  "author": {
+    "name": "IAFahim",
+    "email": "iafahim.dev@gmail.com",
+    "url": "https://github.com/IAFahim"
+  },
+  "keywords": [
+    "lifetime",
+    "caching",
+    "initialization",
+    "pooling"
+  ],
+  "category": "Utilities",
+  "dependencies": {
+    "com.av.unity.extend": "1.0.0"
+  },
+  "samples": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IAFahim/AV.Lifetime"
+  },
+  "licensesUrl": "https://github.com/IAFahim/AV.Lifetime/blob/main/LICENSE.md"
+}
