@@ -28,6 +28,14 @@ namespace AV.Lifetime.Realtime
                 return cache.Exists;
             }
 
+            if (root == null)
+            {
+                component = default;
+                cache.IsCached = true; // Cached null
+                cache.Exists = false;
+                return false;
+            }
+
             cache.Exists = root.TryGetComponent(out cache.Reference);
             cache.IsCached = true;
 

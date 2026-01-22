@@ -33,33 +33,6 @@ namespace AV.Lifetime.Realtime
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryLazyResolveComponent<T>(
-            this ref LazyCache<T> cache,
-            in Transform root,
-            out T component)
-        {
-            if (cache.IsCached)
-            {
-                component = cache.Reference;
-                return cache.Exists;
-            }
-
-            if (root == null)
-            {
-                component = default;
-                cache.IsCached = true; // Cached null
-                cache.Exists = false;
-                return false;
-            }
-
-            cache.Exists = root.TryGetComponent(out cache.Reference);
-            cache.IsCached = true;
-
-            component = cache.Reference;
-            return cache.Exists;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryResolveGroup<T>(
             in Transform self,
             ref TargetCacheGroup<T> cacheGroup,
