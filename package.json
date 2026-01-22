@@ -1,0 +1,24 @@
+{
+  "name": "com.av.lifetime",
+  "version": "1.0.0",
+  "displayName": "AV.Lifetime",
+  "description": "Target context and lifetime management system for Unity with lazy caching and DOD architecture",
+  "unity": "2022.3",
+  "author": {
+    "name": "IAFahim",
+    "email": "iafahim.dev@gmail.com",
+    "url": "https://github.com/IAFahim"
+  },
+  "keywords": [
+    "lifetime",
+    "targeting",
+    "context",
+    "dod",
+    "data-oriented",
+    "cache",
+    "events"
+  ],
+  "category": "Utilities",
+  "dependencies": {},
+  "samples": []
+}
