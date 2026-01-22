@@ -1,62 +1,107 @@
-# AV Lifetime
+# AV.Lifetime
 
-Object lifetime management system with target caching, initialization, and context tracking.
-
-![Unity Version](https://img.shields.io/badge/unity-2021.3%2B-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)
+Target context and lifetime management system for Unity with lazy caching and Data-Oriented Design architecture.
 
 ## Features
 
-- **Professional Quality**: Built following Unity Package Manager best practices
-- **Well Documented**: Comprehensive documentation and examples
-- **Production Ready**: Tested and optimized for production use
+- **Target Context System**: Centralized transform references for game events
+- **ETarget Enum**: Type-safe targeting (Self, Owner, Source, Target, Custom0, Custom1)
+- **Lazy Caching**: Efficient component resolution with automatic cache invalidation
+- **DOD Architecture**: Static logic classes with in/out parameters
+- **Burst Compatible**: Designed for high-performance systems
 
 ## Installation
 
-Install this package via Unity Package Manager by adding this line to your `Packages/manifest.json`:
+Install via Unity Package Manager or add to `Packages/manifest.json`:
 
 ```json
-"com.av.lifetime": "https://github.com/IAFahim/AV.Lifetime.git"
+{
+  "dependencies": {
+    "com.av.lifetime": "1.0.0"
+  }
+}
 ```
-
-Or install via Git URL in Unity Package Manager:
-1. Open Unity Package Manager (Window > Package Manager)
-2. Click the + icon > Add package from git URL
-3. Enter: `https://github.com/IAFahim/AV.Lifetime.git`
-
-## Requirements
-
-- Unity 2021.3 or higher
-- Dependencies will be automatically resolved by Unity Package Manager
 
 ## Usage
 
-Add components from the `AV Lifetime` package to your GameObjects via the Component menu:
-`Component > AV > Lifetime > [Component Name]`
+### Target Context
 
-For detailed usage instructions, see the [Samples](Samples~) included with this package.
+```csharp
+// Define target context on a central manager
+public class TargetContext : MonoBehaviour
+{
+    public Transform Owner;
+    public Transform Source;
+    public Transform Target;
+    public Transform Custom0;
+    public Transform Custom1;
+}
+```
 
-## API Documentation
+### Resolve Targets
 
-For complete API reference and documentation, visit: https://github.com/IAFahim/AV.Lifetime
+```csharp
+using AV.Lifetime.Realtime;
 
-## Changelog
+// Get transform for a target type
+TargetLogic.TryGetTransform(transform, targetContext, ETarget.Source, out var sourceTransform);
 
-See [CHANGELOG.md](CHANGELOG.md) for version history.
+// Resolve component from target with caching
+TargetLogic.TryResolveGroup(
+    transform,
+    ref targetCacheGroup,
+    targetContext,
+    ETarget.Target,
+    out IRpgStatsMap statsMap
+);
+```
+
+### TargetContextBehaviour
+
+```csharp
+// Base component that provides target context
+public class TargetContextBehaviour : MonoBehaviour
+{
+    public TargetContext targetContext;
+}
+```
+
+## API
+
+### TargetLogic
+
+Static class for target resolution:
+
+- `TryGetTransform()` - Get transform by ETarget enum
+- `TryResolveGroup()` - Resolve component with lazy caching
+- `TryLazyResolveComponent()` - Extension method for LazyCache
+
+### ETarget Enum
+
+- `Self` - The transform itself
+- `Owner` - The owning object
+- `Source` - The object that triggered an event
+- `Target` - The target of an action
+- `Custom0` - User-defined slot 0
+- `Custom1` - User-defined slot 1
+
+## Code Quality
+
+This package follows strict naming guidelines from AGENTS.md:
+- ✅ **No abbreviations**: `TargetContextBehaviour` (not `InitializeMono`)
+- ✅ **Descriptive names**: `targetContext` (not `ctx` or `tc`)
+- ✅ **Pronounceable**: All class and variable names read naturally
+- ✅ **Clear intent**: Names describe exactly what they represent
+- ✅ **Full words**: `TryResolveGroup` (not `TryResGrp`)
+
+**Class Rename**: `InitializeMono` → `TargetContextBehaviour`
+- Old name used "Mono" abbreviation for MonoBehaviour
+- New name clearly indicates it's a behaviour that provides target context
 
 ## License
 
-MIT License - see [LICENSE.md](LICENSE.md) for details.
+MIT License - see [LICENSE.md](LICENSE.md)
 
 ## Author
 
-IAFahim - [https://github.com/IAFahim](https://github.com/IAFahim)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Support
-
-For issues and questions, please use the [GitHub Issues](https://github.com/IAFahim/AV.Lifetime/issues) page.
+IAFahim - [iafahim.dev@gmail.com](mailto:iafahim.dev@gmail.com)
