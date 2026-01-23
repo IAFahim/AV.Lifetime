@@ -83,16 +83,24 @@ namespace AV.Lifetime.Realtime
             in ETarget target,
             out T component) where T : Component
         {
-            TryGetTransform(self, targetContext, target, out var transform);
-            return target switch
+            if (!TryGetTransform(self, targetContext, target, out var transform))
             {
-                ETarget.Self => targetCacheGroup.Self.TryLazyResolveComponent(in transform, out component),
-                ETarget.Owner => targetCacheGroup.Owner.TryLazyResolveComponent(in transform, out component),
-                ETarget.Source => targetCacheGroup.Source.TryLazyResolveComponent(in transform, out component),
-                ETarget.Target => targetCacheGroup.Target.TryLazyResolveComponent(in transform, out component),
-                ETarget.Custom0 => targetCacheGroup.Custom0.TryLazyResolveComponent(in transform, out component),
-                ETarget.Custom1 => targetCacheGroup.Custom1.TryLazyResolveComponent(in transform, out component)
-            };
+                component = null;
+                return false;
+            }
+
+            switch (target)
+            {
+                case ETarget.Self: return targetCacheGroup.Self.TryLazyResolveComponent(in transform, out component);
+                case ETarget.Owner: return targetCacheGroup.Owner.TryLazyResolveComponent(in transform, out component);
+                case ETarget.Source: return targetCacheGroup.Source.TryLazyResolveComponent(in transform, out component);
+                case ETarget.Target: return targetCacheGroup.Target.TryLazyResolveComponent(in transform, out component);
+                case ETarget.Custom0: return targetCacheGroup.Custom0.TryLazyResolveComponent(in transform, out component);
+                case ETarget.Custom1: return targetCacheGroup.Custom1.TryLazyResolveComponent(in transform, out component);
+                default:
+                    component = null;
+                    return false;
+            }
         }
     }
 }

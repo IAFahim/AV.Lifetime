@@ -1,7 +1,7 @@
 {
   "name": "com.av.lifetime",
   "version": "1.0.0",
-  "displayName": "AV.Lifetime",
+  "displayName": "AV Lifetime",
   "description": "Target context and lifetime management system for Unity with lazy caching and DOD architecture",
   "unity": "2022.3",
   "author": {
@@ -19,7 +19,11 @@
     "events"
   ],
   "category": "Utilities",
+  "license": "MIT",
   "dependencies": {},
   "samples": [],
-  "_fingerprint": "acd3ac3de6253704f4e7545495b5e3960ce2f326"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IAFahim/AV.Lifetime"
+  }
 }
